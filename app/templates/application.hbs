@@ -5,8 +5,7 @@
 
     {{#if session.isAuthenticated}}
         <li>Hi Lookit Team</li>
-<!--        The <a> below does not show up as a link, but it is clickable and the action executes-->
-        <li><a {{action 'invalidateSession'}} >Logout</a></li>
+        <li>{{#link-to 'login'}}Logout{{/link-to}}</li>
     {{else}}
         <li>{{#link-to 'login'}}Login{{/link-to}}</li>
         <li>Register</li>

@@ -6,10 +6,14 @@ export default Ember.Controller.extend({
   driver: 'jam-auth',
 
   actions: {
-    authenticate(attrs) {
+    authenticate(attrs, router) {
       this.get('session').authenticate('authenticator:jam-jwt', attrs).then(() => {
-//          Change this
-//        this.set('model', this.store.findAll('namespace'));
+          this.get('target').transitionTo('homen');
+      });
+    },
+    invalidateSession() {
+      this.get('session').invalidate().then(() => {
+          this.get('target').transitionTo('homen');  
       });
     }
   }

@@ -1,7 +1,7 @@
 <h3>Login page</h3>
 
 {{#if session.isAuthenticated}}
-<p>You are logged in.</p>
+<p>Are you sure you want to log out?</p>
 <button {{action 'invalidateSession'}}>Logout</button>
 {{else}}
 <p>Login with Jam:</p>
