@@ -1,7 +1,14 @@
 <h3>Login page</h3>
 
-{{#if loggedIn}}
-    <button {{action 'logout'}}>Click here to logout</button>
+{{#if session.isAuthenticated}}
+<p>You are logged in.</p>
+<button {{action 'invalidateSession'}}>Logout</button>
 {{else}}
-    <button {{action 'login'}}>Click here to log in</button>
+<p>Login with Jam:</p>
+
+<!--{{component jan-auth login=(action 'authenticate')}}-->
+{{jam-auth login=(action 'authenticate')}}
+
 {{/if}}
+
+{{outlet}}

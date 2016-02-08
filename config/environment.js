@@ -1,7 +1,17 @@
-/* jshint node: true */
-
 module.exports = function(environment) {
   var ENV = {
+    jamdbURL: 'http://localhost:1212',
+    auth: {
+      self: {
+        defaultNamespace: 'OPENTRIALS',
+        defaultCollection: 'users',
+      },
+//      osf: {
+//          clientId: 'db1ff76b6001460c884c33b74b2784f8',
+//          scope: 'osf.users.all_read',
+//          url: 'https://staging-accounts.osf.io',
+//      },
+    },
     modulePrefix: 'lookit-base',
     environment: environment,
     baseURL: '/',
@@ -12,18 +22,22 @@ module.exports = function(environment) {
         // e.g. 'with-controller': true
       }
     },
+    'ember-simple-auth': {
+        authenticationRoute: 'login'
+    },
 
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
     },
-    
-//    This is probably super unsafe, but just for proof of concept...
     contentSecurityPolicy: {
-        'style-src':"'self' 'unsafe-inline'",
-        'script-src': "'self' 'unsafe-inline' *",
-        'object-src': "*",
-        'img-src': "*"
+        'font-src': "'self' fonts.gstatic.com fonts.googleapis.com",
+        'style-src': "'self' 'unsafe-inline' fonts.googleapis.com",
+        'connect-src': "'self' localhost:1212",
+        'child-src': "'self' blob:",
+//        Change this unsafe-inline
+        'script-src': "* 'unsafe-inline'" ,
+        'default-src': "*",
     }
   };
 
@@ -33,6 +47,11 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+  }
+
+  if (environment === 'stage') {
+    ENV.jamdbURL = 'https://staging-metadata.osf.io';
+    ENV.auth.self.defaultNamespace = 'COS';
   }
 
   if (environment === 'test') {
